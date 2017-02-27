@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "inlineSourceMap": false,
+    "jsx": "react",
+    "lib": ["dom", "es2015.promise", "es5", "scripthost"],
+    "module": "amd",
+    "noEmitHelpers": true,
+    "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noImplicitUseStrict": true,
+    "noUnusedLocals": true,
+    "reactNamespace": "jsxFactory",
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es5"
+  },
+  "include": [
+    "**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

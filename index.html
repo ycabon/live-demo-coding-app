@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>WebMap</title>
+  <link rel="stylesheet" href="//jsdev.arcgis.com/4.3/esri/css/main.css">
+  <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-rc.1/css/calcite-web.min.css">
+  <script src="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-rc.1/js/calcite-web.min.js"></script>
+  <script type="text/javascript" src="node_modules/requirejs/require.js"></script>
+  <script type="text/javascript">
+  
+    var app = "demo";
+
+    var path = location.href.substring(0, location.href.lastIndexOf('/') + 1);
+    require.config({
+      paths: {
+        text: `${path}node_modules/text/text`,
+        vs: `${path}node_modules/monaco-editor/dev/vs`,
+        "@types": `${path}node_modules/@types`,
+        ts: `${path}src/ts`,
+        app: `${path}src/${app}`
+      }
+    })
+  </script>
+
+
+  <style>
+    .wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    #monacoEditor {
+      position: absolute;
+      top: 85px;
+      right: 20px;
+      width: 600px;
+      height: 400px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    #iframeHolder {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    #iframeHolder > iframe {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+
+  <script id="typescriptExtraLib" type="text/typescript"></script>
+  <script id="typescriptSample" type="text/typescript">
+import * as Map from "esri/Map";
+import * as MapView from "esri/views/SceneView";
+import * as MapImageLayer from "esri/layers/MapImageLayer";
+
+const map = new Map({
+  basemap: "topo"
+});
+
+const view = new MapView({
+  container: "viewDiv",
+  map: map,
+  padding: {
+    top: 70, left: 0, right: 0, bottom: 0 
+  }
+});
+
+const layer = new MapImageLayer({
+  url: "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer",
+  opacity: 0.75
+});
+
+map.add(layer);
+  </script>
+
+</head>
+<body>
+  <header class="top-nav fade-in">
+    <div class="grid-container">
+      <div class="column-24">
+        <div class="tablet-hide">
+          <a class="skip-to-content" href="#skip-to-content">Skip To Content</a>
+          <a href="#" class="top-nav-title">WebMap</a>
+          <nav class="class-top-nav-list right" role="navigation" aria-labelledby="usernav">
+            <!--<button class="icon-ui-search search-top-nav link-dark-gray js-search-toggle" href="#" aria-label="Search">Search</button>
+            <a class="btn btn-clear margin-left-1" href="#">Sign Up</a>-->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="wrapper">
+    <div id="iframeHolder"></div>
+    <div class="content">
+      <div id="monacoEditor"></div>
+    </div>
+  </div>
+  <script type="text/javascript">require(["app/App"]);</script>
+</body>
+</html>
