@@ -12,6 +12,7 @@ npm install
 then browse to the `index.html` page.
 
 To update the compiled app, edit the code on the right and hit `Ctrl+s`.
+The code is then transpiled and executed in an iframe.
 
 # Creating new pages
 
