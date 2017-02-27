@@ -4,12 +4,14 @@ Bootstrap application that allows the presenter to live code and get the demo up
 ![Example of application](screenshot.png)
 
 # Usage
+Make sure you have git installed and on your PATH, alternatively run the `npm install` from a git shell
 
 ```
 npm install
+npm start
 ```
 
-then browse to the `index.html` page.
+then browse to the `http://localhost:8000`.
 
 To update the compiled app, edit the code on the right and hit `Ctrl+s`.
 The code is then transpiled and executed in an iframe.
