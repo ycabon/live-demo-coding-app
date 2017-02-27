@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ws"
   },
   "author": "",
   "license": "ISC",
@@ -14,5 +15,8 @@
     "requirejs": "^2.3.3",
     "text": "github:requirejs/text",
     "typescript": "^2.2.1"
+  },
+  "devDependencies": {
+    "local-web-server": "^1.2.6"
   }
 }
