@@ -56,14 +56,14 @@
   <script id="typescriptExtraLib" type="text/typescript"></script>
   <script id="typescriptSample" type="text/typescript">
 import * as Map from "esri/Map";
-import * as MapView from "esri/views/SceneView";
+import * as SceneView from "esri/views/SceneView";
 import * as MapImageLayer from "esri/layers/MapImageLayer";
 
 const map = new Map({
   basemap: "topo"
 });
 
-const view = new MapView({
+const view = new SceneView({
   container: "viewDiv",
   map: map,
   padding: {
