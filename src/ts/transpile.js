@@ -21,7 +21,6 @@ define([
       getDirectories: function () { return []; }
     });
     
-    
     program.emit();
 
     if (outputText === undefined) {
@@ -30,27 +29,5 @@ define([
 
     return outputText;
   };
-
-  // var output = transpileModule(lhs.editor.getValue(), {
-  //   module: ts.ModuleKind.AMD,
-  //   target: ts.ScriptTarget.ES5,
-  //   noLib: true,
-  //   noResolve: true,
-  //   suppressOutputPathCheck: true
-  // });
-
-  // if (typeof output === "string") {
-  //   var rhsModel = rhs.editor.getModel();
-  //   // Save view state
-  //   var viewState = rhs.editor.saveViewState();
-  //   // Update content
-  //   rhsModel.setValue(output);
-  //   // Remove flicker: force tokenization
-  //   rhsModel.getLineTokens(rhsModel.getLineCount());
-  //   // Restore view state
-  //   rhs.editor.restoreViewState(viewState);
-  //   // Remove flicker: force rendering
-  //   rhs.editor.getOffsetForColumn(1, 1);
-  // }
 
 });
