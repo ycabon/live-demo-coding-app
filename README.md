@@ -21,7 +21,7 @@ I used convention to quickly create new demo apps. Here are the steps to follow 
  - Edit `index2.html`
    - update the application name `var app = "demo2"`;
    - update the typescript code that will be executing. Let's display a simple scene:
-   ```html
+```html
 <script id="typescriptSample" type="text/typescript">
 import * as Map from "esri/Map";
 import * as SceneView from "esri/views/SceneView";
@@ -35,10 +35,10 @@ const view = new SceneView({
   map: map
 });
 </script>
-   ```
+```
    - optionally, update the content of the iframe `src/demo2/iframe.html`. This is where the SceneView's container `viewDiv` is defined for example.
-   - optionally, update the text content of this script tag `<script id="typescriptExtraLib" type="text/typescript"></script>` in `index2.html` to declare the typescript context.
-   ```html
+   - optionally, update the text content of this script tag `<script id="typescriptExtraLib" type="text/typescript"></script>` in `index2.html` to declare the typescript context.  
+```html
 <script id="typescriptExtraLib" type="text/typescript">
 import * as Map from "esri/Map";
 declare var map: Map;
@@ -51,4 +51,4 @@ const view = new SceneView({
   map: map
 });
 </script>
-   ```
+```
