@@ -4,25 +4,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>WebMap</title>
-  <link rel="stylesheet" href="//jsdev.arcgis.com/4.3/esri/css/main.css">
-  <script type="text/javascript" src="../../node_modules/requirejs/require.js"></script>
-  <script type="text/javascript">
-    var path = location.href.substring(0, location.href.lastIndexOf('/') + 1);
-    require.config({
-      paths: {
-        text: `${path}../../node_modules/text/text`,
-        esri: "https://jsdev.arcgis.com/4.3/esri",
-        dojo: "https://jsdev.arcgis.com/4.3/dojo",
-        dijit: "https://jsdev.arcgis.com/4.3/dijit",
-        dojox: "https://jsdev.arcgis.com/4.3/dojox",
-        moment: "https://jsdev.arcgis.com/4.3/moment"
-      },
-      aliases: [
-        [/^webgl-engine/, function(){return "esri/views/3d/webgl-engine";}],
-        [/^engine/, function(){return "esri/views/3d/webgl-engine";}]
-      ]
-    });
-  </script>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
+  <script type="text/javascript" src="https://js.arcgis.com/4.3/"></script>
 
   <style>
     html, body {
