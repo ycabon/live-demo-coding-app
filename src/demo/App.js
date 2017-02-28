@@ -13,10 +13,14 @@ function(require, createEditor, transpile, iframeContent) {
   }
 
   const tsSample = innerText("typescriptSample");
+  const jsSample = innerText("javascriptSample");
   const tsExtraLib = innerText("typescriptExtraLib");
   const iframeHolder = document.getElementById("iframeHolder");
 
-  const editor = createEditor("monacoEditor", tsSample, [tsExtraLib]);
+  const editor = createEditor("monacoEditor", tsSample || jsSample, {
+    language: tsSample ? "typescript" : "javascript",
+    extraLibs: [tsExtraLib]
+  });
 
   editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KEY_S, triggerCompile);
 
@@ -41,7 +45,8 @@ function(require, createEditor, transpile, iframeContent) {
     });
 
     // don't look at me
-    output = output.replace(/^define/, "require");
+    output = output.replace(`define(["require", "exports",`, `require(["require",`)
+      .replace("exports, ", "");
 
     iframe = document.createElement("iframe");
     iframe.onload = () => {
