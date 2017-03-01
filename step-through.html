@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+  <title>Steps</title>
+
+  <link rel="stylesheet" href="https://js.arcgis.com/4.3/esri/css/main.css">
+  <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-rc.1/css/calcite-web.min.css">
+
+  <script src="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.0.0-rc.1/js/calcite-web.min.js"></script>
+
+  <script>
+    var app = "step-through-example";
+    var path = location.href.substring(0, location.href.lastIndexOf('/') + 1);
+    var api = "https://js.arcgis.com/4.3/";
+
+    var dojoConfig = {
+      paths: {
+        text: `${path}node_modules/text/text`,
+        vs: `${path}node_modules/monaco-editor/min/vs`,
+        "@types": `${path}node_modules/@types`,
+        ts: `${path}src/ts`,
+        app: `${path}src/${app}`,
+        esri: `${api}/esri`,
+        dojo: `${api}/dojo`,
+        dojox: `${api}/dojox`,
+        dijit: `${api}/dijit`,
+        moment: `${api}/moment`
+      },
+      baseUrl: `${api}/dojo/`
+    }
+  </script>
+
+  <script src="node_modules/requirejs/require.js"></script>
+
+  <style>
+    html,
+    body,
+    .wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    #codeSnippets {
+      position: absolute;
+      top: 85px;
+      right: 15px;
+      width: 500px;
+      height: 40px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      /*opacity: 0.8;*/
+    }
+
+    #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+
+    .editor {
+      height: 400px;
+      margin-bottom: 10px;
+    }
+
+    .run-button {
+      margin-left: 10px;
+      margin-bottom: 10px;
+    }
+    
+  </style>
+
+  <script>
+
+    require.config(dojoConfig);
+
+    require([
+      "app/config",
+      "ts/editor",
+      "dojo/domReady!"
+    ], function(
+      config,
+      editor
+    ) {
+
+      config.setup();
+
+      const steps = config.steps;
+
+      function on(id, event, handler) {
+        var element = document.getElementById(id) || id;
+        if (!element || !element.addEventListener) {
+          throw new TypeError("on:element undefined");
+        }
+        element.addEventListener(event, handler);
+        return {
+          remove: () => { element.removeEventListener(event, handler); }
+        }
+      }
+
+      function createSection(title) {
+        const div = document.createElement("div");
+
+        div.innerHTML = 
+          `<div class="accordion-section">
+            <h4 class="accordion-title">
+              <span class="accordion-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 32 32" class="svg-icon"><path d="M28 9v5L16 26 4 14V9l12 12L28 9z"/></svg>
+              </span>
+              ${title}
+            </h4>
+            <div class="accordion-content">
+              <div class="editor"></div>
+              <div class="run-button"><button class="btn">Run</button></div>
+            </div>
+          </div>`;
+        return div.firstChild;
+      }
+
+      const sections = steps.map(step => {
+        const { title } = step;
+        const section = createSection(title);
+        document.querySelector(".js-accordion").appendChild(section);
+        
+        return section;
+      });
+
+      calcite.addClass(sections[0], "is-active");
+      calcite.init();
+
+      steps.forEach((step, i) => {
+        editor(sections[i].querySelector(".editor"), step.code, {
+          language: "javascript",
+          lineNumbers: false,
+          automaticLayout: true,
+          renderLineHighlight: false,
+          selectionHighlight: false
+        });
+        on(sections[i].querySelector(".run-button"), "click", e => step.run());
+      });
+
+      calcite.bus.on("accordion:toggle", function(evt) {
+        var sections = document.getElementsByClassName("accordion-section");
+        let isActive, wasActive;
+
+        for (var i = 0; i < sections.length; i++) {
+          var node = sections[i];
+          if (node === evt.node) {
+            calcite.addClass(node, "is-active");
+            isActive = i;
+          }
+          else {
+            calcite.removeClass(node, "is-active");
+            wasActive = i;
+          }
+        }
+
+        if (steps[wasActive].after) {
+          steps[wasActive].after();
+        }
+
+        if (steps[isActive].before) {
+          steps[isActive].before();
+        }
+      });
+
+    });
+  </script>
+</head>
+
+<body>
+<header class="top-nav fade-in">
+  <div class="grid-container">
+    <div class="column-24">
+      <div class="tablet-hide">
+        <a href="#" class="top-nav-title">Steps</a>
+        <nav class="class-top-nav-list right" role="navigation" aria-labelledby="usernav">
+          <!--<button class="icon-ui-search search-top-nav link-dark-gray js-search-toggle" href="#" aria-label="Search">Search</button>
+          <a class="btn btn-clear margin-left-1" href="#">Sign Up</a>-->
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="wrapper">
+
+  <div id="viewDiv"></div>
+
+  <div id="codeSnippets">
+    <aside class="js-accordion accordion"></aside>
+    <!--<div id="statusMessage"></div>-->
+  </div>
+</div>
+</body>
+</html>

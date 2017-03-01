@@ -10,18 +10,18 @@ define([,
   return function(div, sample, options) {
     const opts = Object.assign({
       extraLibs: [],
+      value: sample,
       language: "typescript"
-    }, options)
+    }, options);
 
     opts.extraLibs.forEach((extraLib, i) => {
       monaco.languages.typescript.typescriptDefaults.addExtraLib(extraLib, `extraLib${i}.d.ts`);
       monaco.languages.typescript.javascriptDefaults.addExtraLib(extraLib, `extraLib${i}.d.ts`);
     });
 
-    return monaco.editor.create(document.getElementById(div) || div, {
-      value: sample,
-      language: opts.language
-    });
+    delete opts.extraLibs;
+
+    return monaco.editor.create(document.getElementById(div) || div, opts);
   }
 
 });
