@@ -10,6 +10,8 @@ function(
   var map, view;
 
   return {
+    title: "Test",
+    
     setup: function() {
       map = new Map({
         basemap: "topo"
