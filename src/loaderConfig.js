@@ -1,7 +1,7 @@
 const href = location.href;
 var app =  href.substring(href.lastIndexOf('/'), href.indexOf(".html"));
 var path = href.substring(0, href.lastIndexOf('/') + 1);
-var api = "https://js.arcgis.com/4.3/";
+var api = "https://js.arcgis.com/4.9/";
 
 var loaderConfig = {
   paths: {
@@ -18,9 +18,41 @@ var loaderConfig = {
     dijit: `${api}dijit`,
     moment: `${api}moment`
   },
-  aliases: [
-    [/^webgl-engine/, function(){return "esri/views/3d/webgl-engine";}],
-    [/^engine/, function(){return "esri/views/3d/webgl-engine";}]
+  packages: [
+    {
+      name: "@dojo",
+      location: `${path}node_modules/@dojo`
+    },
+    {
+      name: "cldrjs",
+      location: `${path}node_modules/cldrjs`,
+      main: "dist/cldr"
+    },
+    {
+      name: "globalize",
+      location: `${path}node_modules/globalize`,
+      main: "dist/globalize"
+    },
+    {
+      name: "maquette",
+      location: `${path}node_modules/maquette`,
+      main: "dist/maquette.umd"
+    },
+    {
+      name: "maquette-css-transitions",
+      location: `${path}node_modules/maquette-css-transitions`,
+      main: "dist/maquette-css-transitions.umd"
+    },
+    {
+      name: "maquette-jsx",
+      location: `${path}node_modules/maquette-jsx`,
+      main: "dist/maquette-jsx.umd"
+    },
+    {
+      name: "tslib",
+      location: `${path}node_modules/tslib`,
+      main: "tslib"
+    }
   ],
   baseUrl: `${api}dojo`
 }
